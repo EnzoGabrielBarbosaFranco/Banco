@@ -1,43 +1,24 @@
+import java.time.LocalDate;
+import java.time.Month;
+
 public class TestaConta {
     public static void main(String[] args) {
-        Cliente cliente = new Cliente();
-        cliente.nomeCompleto = "Enzo Gabriel Barbosa Franco";
+        LocalDate dataNascimentLocalDate = LocalDate.of(2003, Month.DECEMBER, 8);
+        Cliente cliente = new Cliente("Enzo Gabriel Barbosa Franco", "123456", dataNascimentLocalDate, new Endereco());
 
-        Data hoje = new Data();
-        hoje.dia = 25;
-        hoje.mes = 4;
-        hoje.ano = 2022;
-
-        Conta contaCorrente = new Conta();
-        contaCorrente.agencia = "0001";
-        contaCorrente.numero = "12345-6";
-        contaCorrente.ativa = true;
-        contaCorrente.cliente = cliente;
-        contaCorrente.dataDeAbertura = hoje;
-        contaCorrente.limite = 300;
-        contaCorrente.saldo = 100;
-        contaCorrente.tipo = "Conta Corrente";
+        Conta contaCorrente = new Conta(cliente, "0001", "12345-6", "Conta Corrente");
+        contaCorrente.depositar(100);
+        System.out.println(Conta.getTotalDeContas());
+        
 
         double rendimentoAbril = contaCorrente.calcularRendimentoMensal(0.1);
         System.out.println("O rendimento de abril é: R$ " + rendimentoAbril);
 
-        System.out.println(contaCorrente.recuperarDadosParaImpressao());
+        System.out.println(contaCorrente.toString());
 
-        Conta contaPoupança = new Conta();
-        contaPoupança.agencia = "0002";
-        contaPoupança.numero = "12345-7";
-        contaPoupança.ativa = true;
-        contaPoupança.cliente = cliente;
-        contaPoupança.dataDeAbertura = hoje;
-        contaPoupança.limite = 0;
-        contaPoupança.saldo = 150;
-        contaPoupança.tipo = "Poupança";
-
-        if (contaCorrente == contaPoupança) {
-            System.out.println("Contas iguais.");
-        } else {
-            System.out.println("Contas Diferentes.");
-        }
+        Conta contaPoupança = new Conta(cliente, "0002", "12345-7", "Conta Poupança");
+        contaPoupança.depositar(100);
+        System.out.println(Conta.getTotalDeContas());
     }
 }
     
