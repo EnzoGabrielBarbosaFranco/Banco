@@ -1,7 +1,9 @@
+package br.com.digix.modelo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Conta {
+    private static int id;
     private double saldo;
     private String tipo;
     private String numero;
@@ -12,18 +14,29 @@ public class Conta {
     private Cliente cliente;
     private static int contador;
 
-    Conta(Cliente cliente, String agencia, String numero, String tipo) {
+    public Conta(Cliente cliente, String agencia, String numero, String tipo) {
+        Conta.id++;
         this.cliente = cliente;
         this.agencia = agencia;
         this.numero = numero;
         this.tipo = tipo;
         this.saldo = 0;
+        this.limite = 0;
         this.ativa = true;
         this.dataDeAbertura = LocalDateTime.now();
         Conta.contador++;
     }
 
-    boolean sacar(double quantidade) {
+    public Conta(Cliente cliente, String agencia, String numero, String tipo, double limite) {
+        this(cliente, agencia, numero, tipo);
+        this.limite = limite;
+    }
+
+    public static int getId() {
+        return id;
+    }
+
+   public boolean sacar(double quantidade) {
         double novoSaldo = this.saldo - quantidade;
         if (novoSaldo >= 0) {
             this.saldo = novoSaldo;
@@ -38,7 +51,7 @@ public class Conta {
         System.out.println("Saldo Insuficiente!");
     }
 
-    void depositar(double quantidade) {
+    public void depositar(double quantidade) {
         if (quantidade <= 0) {
             System.out.println("Valor inválido!");
         } else {
@@ -46,7 +59,7 @@ public class Conta {
         }
     }
 
-    void pix(double valorPIX, Conta contaDestino) {
+    public void pix(double valorPIX, Conta contaDestino) {
         if (this.sacar(valorPIX)) {
             contaDestino.depositar(valorPIX);
         } else {
@@ -54,7 +67,7 @@ public class Conta {
         }
     }
 
-    double calcularRendimentoMensal(double taxa) {
+    public double getRendimentoMensal(double taxa) {
         return this.saldo * taxa;
     }
 
@@ -69,7 +82,7 @@ public class Conta {
     public String getAgencia() {
         return agencia;
     }
-    
+
     public Cliente getCliente() {
         return cliente;
     }

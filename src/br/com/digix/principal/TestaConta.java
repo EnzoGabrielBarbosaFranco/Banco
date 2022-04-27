@@ -1,5 +1,10 @@
+package br.com.digix.principal;
 import java.time.LocalDate;
 import java.time.Month;
+
+import br.com.digix.modelo.Cliente;
+import br.com.digix.modelo.Conta;
+import br.com.digix.modelo.Endereco;
 
 public class TestaConta {
     public static void main(String[] args) {
@@ -9,9 +14,8 @@ public class TestaConta {
         Conta contaCorrente = new Conta(cliente, "0001", "12345-6", "Conta Corrente");
         contaCorrente.depositar(100);
         System.out.println(Conta.getTotalDeContas());
-        
 
-        double rendimentoAbril = contaCorrente.calcularRendimentoMensal(0.1);
+        double rendimentoAbril = contaCorrente.getRendimentoMensal(0.1);
         System.out.println("O rendimento de abril é: R$ " + rendimentoAbril);
 
         System.out.println(contaCorrente.toString());
@@ -21,4 +25,3 @@ public class TestaConta {
         System.out.println(Conta.getTotalDeContas());
     }
 }
-    

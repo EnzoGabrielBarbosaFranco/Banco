@@ -1,3 +1,4 @@
+package br.com.digix.modelo;
 public class Endereco {
     String cep;
     String rua;
